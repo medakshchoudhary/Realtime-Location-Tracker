@@ -10,19 +10,23 @@ const server = http.createServer(app);
 const io = socketio(server)
 
 io.on("connection", (socket)=>{
+    console.log("connected") // check why when inside the send location it is printing double 
     socket.on("send-location", function (data){
         io.emit("receive-location", {id: socket.id, ...data})
     })
 
     socket.on("disconnect", function(){
         io.emit("user-disconnected", socket.id);
+        console.log("disconnected");
     })
-    console.log("connected")
 })
 
+// for the views directory
+app.set("views", path.join(__dirname, "../frontend/views"));
 
 app.set("view engine", "ejs");
-app.use(express.static(path.join(__dirname, "public")));
+// for the static files directory
+app.use(express.static(path.join(__dirname, "../frontend/public")));
 
 app.get("/",(req,res)=>{
     res.render("index")
