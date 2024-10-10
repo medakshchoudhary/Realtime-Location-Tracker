@@ -1,0 +1,13 @@
+{
+    "version": 2,
+    "builds": [
+      {
+        "src": "views/index.ejs",
+        "use": "@vercel/static-build"
+      }
+    ],
+    "routes": [
+      { "src": "/(.*)", "dest": "/views/index.ejs" }
+    ]
+  }
+  
